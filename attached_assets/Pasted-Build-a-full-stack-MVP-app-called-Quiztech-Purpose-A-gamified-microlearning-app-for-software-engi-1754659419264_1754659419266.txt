@@ -1,0 +1,128 @@
+Build a full-stack MVP app called Quiztech.
+
+Purpose: A gamified microlearning app for software engineers that delivers a short daily lesson and quiz to help them prepare for interviews, revise concepts, and learn new topics.
+
+Core requirements:
+
+Tech stack:
+
+Frontend: React (web) with mobile-friendly UI (later could adapt to React Native).
+
+Backend: Node.js with Express (or Nest.js) in TypeScript.
+
+Database: PostgreSQL (store users, questions, quizzes, streaks, leaderboards).
+
+Cache & leaderboards: Redis.
+
+Auth: JWT-based email/password + OAuth (Google/GitHub).
+
+MVP features:
+
+Onboarding & profile: User chooses topics, skill level, daily goal.
+
+Daily lesson: Short 2–5 min concept (text + optional code snippet).
+
+Daily quiz: 6 questions (MCQ & short answer) generated from question bank.
+
+Scoring: +10 points per correct, +5 bonus for streak >3 days.
+
+Gamification: Daily streak counter, calendar heatmap, badges (3-day streak, 7-day streak, topic mastery).
+
+Leaderboards: Weekly and monthly, global + friends.
+
+Calendar/history: Month view with completed quiz days.
+
+Content sourcing logic:
+
+Primary: Admin-uploaded content (questions & lessons) via internal admin dashboard.
+
+AI-generated variations allowed (OpenAI API or similar) but must be stored and tagged.
+
+Fallback: If there aren’t enough admin questions for a topic/difficulty:
+
+Search trusted public APIs (Stack Exchange API, GitHub Gists, open-licensed repos) for relevant questions.
+
+Parse into Quiztech’s format, run quality check, remove duplicates, and tag.
+
+Limit fallback to max 50% of daily quiz.
+
+Mark as “Web-sourced” in the UI.
+
+Admin dashboard:
+
+CRUD for questions, lessons, and topics.
+
+Bulk CSV/JSON import.
+
+Approve/reject AI or web-sourced questions.
+
+View analytics: DAU, quiz completion, topic performance.
+
+Data model (simplified):
+
+User: id, email, password_hash, topics[], skill_level, points, streak, created_at.
+
+ContentItem: id, type, topic, difficulty, body, explanation, tags, source, reviewed.
+
+Quiz: id, date, user_id, questions[], score.
+
+Attempt: id, user_id, question_id, selected_option, correct, timestamp.
+
+Badge: id, name, criteria.
+
+Leaderboard: user_id, period, points.
+
+APIs to implement:
+
+Auth (login, signup, logout).
+
+Get daily quiz & lesson (with fallback sourcing if needed).
+
+Submit quiz & update streak/score.
+
+Leaderboard fetch.
+
+Calendar data fetch.
+
+Admin endpoints for content CRUD.
+
+UI:
+
+Landing page with login/signup.
+
+Onboarding wizard (topic selection, skill level, goal).
+
+“Today” screen with lesson + quiz.
+
+Quiz results with explanations & earned points.
+
+Streak calendar.
+
+Leaderboard screen.
+
+Profile with badges & history.
+
+Admin dashboard (separate route or app).
+
+Other:
+
+Push notifications (web push) for daily reminders.
+
+Mobile-first responsive design.
+
+Environment variables for API keys (OpenAI, Stack Exchange).
+
+License compliance for all web-sourced content (show attribution if needed).
+
+Deliverable:
+
+Scaffold the full-stack app with this architecture.
+
+Create placeholder components & API routes with mock data where logic is complex (e.g., AI integration).
+
+Ensure DB migrations for all data models.
+
+Include seed data for topics, example questions, lessons, and badges.
+
+Stretch goal (optional): Add AI “question rephraser” service that takes fallback web-sourced questions and standardizes their style before serving them to users.
+
